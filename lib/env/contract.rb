@@ -101,4 +101,4 @@ module EnvContract
   end
 end
 
-require "env/contract/railtie" if defined?(Rails)
+require "env/contract/railtie"

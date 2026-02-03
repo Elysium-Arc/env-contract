@@ -52,6 +52,15 @@ RSpec.describe EnvContract do
     ENV.delete("ENABLED")
   end
 
+  it "returns nil for missing optional values without defaults" do
+    EnvContract.define do
+      optional :MAYBE_SET, type: :string
+    end
+
+    values = EnvContract.load!
+    expect(values["MAYBE_SET"]).to be_nil
+  end
+
   it "casts false boolean values" do
     EnvContract.define do
       required :ENABLED, type: :boolean
@@ -62,6 +71,17 @@ RSpec.describe EnvContract do
     expect(values["ENABLED"]).to eq(false)
   ensure
     ENV.delete("ENABLED")
+  end
+
+  it "raises for invalid integer" do
+    EnvContract.define do
+      required :COUNT, type: :integer
+    end
+
+    ENV["COUNT"] = "nope"
+    expect { EnvContract.load! }.to raise_error(EnvContract::InvalidType)
+  ensure
+    ENV.delete("COUNT")
   end
 
   it "raises for unknown type" do
