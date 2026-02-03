@@ -2,7 +2,15 @@
 
 Typed ENV contracts with validation and sample generation.
 
-## Install
+## About
+Env Contract lets you define required and optional environment variables with types, defaults, and descriptions. It validates values at boot time and provides a `env-contract` CLI to generate `.env.sample` output.
+
+This is useful for services that need clear, enforceable configuration contracts and easy onboarding.
+
+## Compatibility
+- Ruby 3.0+
+
+## Installation
 ```ruby
 # Gemfile
 
@@ -20,6 +28,14 @@ end
 values = EnvContract.load!
 ```
 
+## Types
+- `:string`
+- `:integer`
+- `:float`
+- `:boolean`
+- `:json`
+
+## CLI
 Generate `.env.sample`:
 ```bash
 env-contract > .env.sample
