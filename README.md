@@ -2,7 +2,6 @@
 
 [![Gem Version](https://img.shields.io/gem/v/env-contract.svg)](https://rubygems.org/gems/env-contract)
 [![Gem Downloads](https://img.shields.io/gem/dt/env-contract.svg)](https://rubygems.org/gems/env-contract)
-[![Gem Downloads (Monthly)](https://img.shields.io/gem/dm/env-contract.svg)](https://rubygems.org/gems/env-contract)
 [![Ruby](https://img.shields.io/badge/ruby-3.0%2B-cc0000.svg)](https://www.ruby-lang.org)
 [![CI](https://github.com/Elysium-Arc/env-contract/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Elysium-Arc/env-contract/actions/workflows/ci.yml)
 [![GitHub Release](https://img.shields.io/github/v/release/Elysium-Arc/env-contract.svg)](https://github.com/Elysium-Arc/env-contract/releases)
@@ -23,6 +22,13 @@ This is useful for services that need clear, enforceable configuration contracts
 
 ## Compatibility
 - Ruby 3.0+
+
+## Elysium Arc Reliability Toolkit
+Also check out these related gems:
+- Cache Coalescer: https://github.com/Elysium-Arc/cache-coalescer
+- Cache SWR: https://github.com/Elysium-Arc/cache-swr
+- Faraday Hedge: https://github.com/Elysium-Arc/faraday-hedge
+- Rack Idempotency Kit: https://github.com/Elysium-Arc/rack-idempotency-kit
 
 ## Installation
 ```ruby
