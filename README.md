@@ -7,6 +7,11 @@ Env Contract lets you define required and optional environment variables with ty
 
 This is useful for services that need clear, enforceable configuration contracts and easy onboarding.
 
+## Use Cases
+- Enforce required configuration at boot time
+- Generate `.env.sample` files for onboarding and docs
+- Prevent misconfigurations in multi-env deployments
+
 ## Compatibility
 - Ruby 3.0+
 
