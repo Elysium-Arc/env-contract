@@ -1,5 +1,8 @@
 # Env Contract
 
+[![Gem Version](https://img.shields.io/gem/v/env-contract.svg)](https://rubygems.org/gems/env-contract)
+[![GitHub Release](https://img.shields.io/github/v/release/Elysium-Arc/env-contract.svg)](https://github.com/Elysium-Arc/env-contract/releases)
+
 Typed ENV contracts with validation and sample generation.
 
 ## About
