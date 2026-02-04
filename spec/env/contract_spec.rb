@@ -41,6 +41,23 @@ RSpec.describe EnvContract do
     ENV.delete("RATIO")
   end
 
+  it "casts boolean variants" do
+    EnvContract.define do
+      required :ENABLED, type: :boolean
+      required :DISABLED, type: :boolean
+    end
+
+    ENV["ENABLED"] = "yes"
+    ENV["DISABLED"] = "0"
+
+    values = EnvContract.load!
+    expect(values["ENABLED"]).to eq(true)
+    expect(values["DISABLED"]).to eq(false)
+  ensure
+    ENV.delete("ENABLED")
+    ENV.delete("DISABLED")
+  end
+
   it "raises for invalid boolean" do
     EnvContract.define do
       required :ENABLED, type: :boolean
@@ -71,6 +88,65 @@ RSpec.describe EnvContract do
     expect(values["ENABLED"]).to eq(false)
   ensure
     ENV.delete("ENABLED")
+  end
+
+  it "casts arrays with default separators" do
+    EnvContract.define do
+      required :HOSTS, type: :array
+    end
+
+    ENV["HOSTS"] = "a,b, c"
+
+    values = EnvContract.load!
+    expect(values["HOSTS"]).to eq(%w[a b c])
+  ensure
+    ENV.delete("HOSTS")
+  end
+
+  it "casts arrays with custom separators and array defaults" do
+    EnvContract.define do
+      optional :HOSTS, type: :array, separator: ";", default: ["a", "b"]
+    end
+
+    values = EnvContract.load!
+    expect(values["HOSTS"]).to eq(%w[a b])
+  end
+
+  it "casts enums and rejects invalid values" do
+    EnvContract.define do
+      required :REGION, type: :enum, values: %w[us eu]
+    end
+
+    ENV["REGION"] = "us"
+    expect(EnvContract.load!["REGION"]).to eq("us")
+
+    ENV["REGION"] = "apac"
+    expect { EnvContract.load! }.to raise_error(EnvContract::InvalidType)
+  ensure
+    ENV.delete("REGION")
+  end
+
+  it "raises when enum values are missing" do
+    EnvContract.define do
+      required :REGION, type: :enum
+    end
+
+    ENV["REGION"] = "us"
+    expect { EnvContract.load! }.to raise_error(EnvContract::InvalidType)
+  ensure
+    ENV.delete("REGION")
+  end
+
+  it "supports callable types" do
+    EnvContract.define do
+      required :PORT, type: ->(value) { Integer(value) + 1 }
+    end
+
+    ENV["PORT"] = "2999"
+    values = EnvContract.load!
+    expect(values["PORT"]).to eq(3000)
+  ensure
+    ENV.delete("PORT")
   end
 
   it "raises for invalid integer" do

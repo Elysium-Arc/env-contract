@@ -43,6 +43,8 @@ EnvContract.define do
   required :DATABASE_URL, type: :string, desc: "Primary DB"
   optional :REDIS_URL, type: :string
   optional :RETRIES, type: :integer, default: 3
+  optional :REGION, type: :enum, values: %w[us eu]
+  optional :ALLOWED_HOSTS, type: :array, separator: ";"
 end
 
 values = EnvContract.load!
@@ -54,6 +56,10 @@ values = EnvContract.load!
 - `:float`
 - `:boolean`
 - `:json`
+- `:array`
+- `:enum`
+
+Boolean values accept `true/false`, `1/0`, and `yes/no` (case-insensitive).
 
 ## CLI
 Generate `.env.sample`:
